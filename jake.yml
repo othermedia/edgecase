@@ -21,3 +21,4 @@ packages:
         - Ojay
       provides:
         - Edgecase
+        - Edgecase.Concrete

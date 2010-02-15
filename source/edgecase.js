@@ -1,17 +1,22 @@
-Edgecase = new JS.Class('Edgecase', {
-    initialize: function(element, options) {
-        this._options   = options || {};
-        this._element   = Ojay(element);
-        this._visible   = true;
+Edgecase = new JS.Module('Edgecase', {
+    _visible: true,
+    
+    setElement: function(element) {
+        this._element = Ojay(element);
         
-        if (this._options.container) {
-            this._container = Ojay(this._options.container);
-        }
+        return this;
+    },
+    
+    setContainer: function(container) {
+        this._container = container ? Ojay(container) : null;
         
-        this._width  = this._options.width  || this._element.getWidth();
-        this._height = this._options.height || this._element.getHeight();
+        return this;
+    },
+    
+    setElementAspectRatio: function(ratio) {
+        this._elementAspectRatio = ratio;
         
-        this._elementAspectRatio = this._options.aspectRatio || this._width / this._height;
+        return this;
     },
     
     setup: function() {
@@ -21,7 +26,7 @@ Edgecase = new JS.Class('Edgecase', {
             }
         }, this);
         
-        this.fitToContainer();
+        return this.fitToContainer();
     },
     
     show: function() {
@@ -98,5 +103,29 @@ Edgecase = new JS.Class('Edgecase', {
         style.display = 'block';
         style.position = 'absolute';
         this._element.setStyle(style);
+    }
+});
+
+Edgecase.Concrete = new JS.Class('Edgecase.Concrete', {
+    include: Edgecase,
+    
+    initialize: function(image, options) {
+        var ratio, html, x, y;
+        
+        options = options || {};
+        
+        this.setElement(image);
+        this.setContainer(options.container);
+        
+        if (options.aspectRatio) {
+            ratio = options.aspectRatio;
+        } else {
+            html  = this.getHTML();
+            x     = html.getWidth();
+            y     = html.getHeight();
+            ratio = x / y;
+        }
+        
+        this.setElementAspectRatio(ratio);
     }
 });
