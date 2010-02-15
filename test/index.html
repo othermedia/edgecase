@@ -14,15 +14,32 @@
     
     <style type="text/css" media="screen">
         html, body {margin:0; border:none; padding:0; overflow:hidden;}
+        .control {position:absolute; bottom:100px; right:100px; display:block; padding:10px; background:#000; color:#fff; font-family:'Times New Roman', serif; font-weight:bold; font-size:18px; font-style:italic; cursor:pointer;}
     </style>
 </head><body>
     
     <img id="main" alt="" src="./images/colour-bars.png">
     
     <script type="text/javascript">
-        require('Edgecase', function() {
+        require('Ojay', 'Edgecase', function() {
             var scaleable = new Edgecase('#main');
             scaleable.setup();
+            
+            var ctrl = Ojay(Ojay.HTML.span({className: 'control'}, 'Hide background'));
+            scaleable.getHTML().insert(ctrl, 'after');
+            
+            var hidden = false;
+            ctrl.on('click', function() {
+                if (hidden) {
+                    scaleable.show();
+                    ctrl.setContent('Hide background');
+                } else {
+                    scaleable.hide();
+                    ctrl.setContent('Show background');
+                }
+                
+                hidden = !hidden;
+            });
         });
     </script>
     

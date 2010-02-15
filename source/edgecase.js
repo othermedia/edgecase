@@ -2,6 +2,7 @@ Edgecase = new JS.Class('Edgecase', {
     initialize: function(element, options) {
         this._options   = options || {};
         this._element   = Ojay(element);
+        this._visible   = true;
         
         if (this._options.container) {
             this._container = Ojay(this._options.container);
@@ -14,9 +15,38 @@ Edgecase = new JS.Class('Edgecase', {
     },
     
     setup: function() {
-        Ojay(window).on('resize', this.fitToContainer, this);
+        Ojay(window).on('resize', function() {
+            if (this._visible) {
+                this.fitToContainer();
+            }
+        }, this);
         
         this.fitToContainer();
+    },
+    
+    show: function() {
+        if (this._visible) return;
+        
+        this.fitToContainer();
+        this._element.show();
+        
+        this._visible = true;
+        
+        return this;
+    },
+    
+    hide: function() {
+        if (!this._visible) return;
+        
+        this._element.hide();
+        
+        this._visible = false;
+        
+        return this;
+    },
+    
+    getHTML: function() {
+        return this._element;
     },
     
     fitToContainer: function() {
@@ -25,12 +55,16 @@ Edgecase = new JS.Class('Edgecase', {
         } else {
             this.fitToViewport();
         }
+        
+        return this;
     },
     
     fitToViewport: function() {
         var portsize = Ojay.getViewportSize();
         
         this._fitToContainer(portsize.width, portsize.height);
+        
+        return this;
     },
     
     _fitToContainer: function(containerWidth, containerHeight) {
