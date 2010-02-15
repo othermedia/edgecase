@@ -13,8 +13,8 @@ Edgecase = new JS.Module('Edgecase', {
         return this;
     },
     
-    setElementAspectRatio: function(ratio) {
-        this._elementAspectRatio = ratio;
+    setAspectRatio: function(ratio) {
+        this._aspectRatio = ratio;
         
         return this;
     },
@@ -76,8 +76,8 @@ Edgecase = new JS.Module('Edgecase', {
         var containerAspectRatio = containerWidth / containerHeight,
             position, x, y;
         
-        if (containerAspectRatio > this._elementAspectRatio) {
-            y = containerWidth / this._elementAspectRatio;
+        if (containerAspectRatio > this._aspectRatio) {
+            y = containerWidth / this._aspectRatio;
             
             position = {
                 width:  containerWidth + 'px',
@@ -86,7 +86,7 @@ Edgecase = new JS.Module('Edgecase', {
                 top:    Math.ceil((containerHeight - y) / 2) + 'px'
             };
         } else {
-            x = containerHeight * this._elementAspectRatio;
+            x = containerHeight * this._aspectRatio;
             
             position = {
                 width:  Math.ceil(x) + 'px',
@@ -126,6 +126,6 @@ Edgecase.Concrete = new JS.Class('Edgecase.Concrete', {
             ratio = x / y;
         }
         
-        this.setElementAspectRatio(ratio);
+        this.setAspectRatio(ratio);
     }
 });
