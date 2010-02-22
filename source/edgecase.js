@@ -1,4 +1,6 @@
 Edgecase = new JS.Module('Edgecase', {
+    include: Ojay.Observable,
+    
     _visible: true,
     
     setElement: function(element) {
@@ -26,7 +28,10 @@ Edgecase = new JS.Module('Edgecase', {
             }
         }, this);
         
-        return this.fitToContainer();
+        this.fitToContainer();
+        this.notifyObservers('load', this);
+        
+        return this;
     },
     
     show: function() {
@@ -37,6 +42,8 @@ Edgecase = new JS.Module('Edgecase', {
         
         this._visible = true;
         
+        this.notifyObservers('show', this);
+        
         return this;
     },
     
@@ -46,6 +53,8 @@ Edgecase = new JS.Module('Edgecase', {
         this._element.hide();
         
         this._visible = false;
+        
+        this.notifyObservers('hide', this);
         
         return this;
     },
@@ -100,7 +109,7 @@ Edgecase = new JS.Module('Edgecase', {
     },
     
     _styleElement: function(style) {
-        style.display = 'block';
+        style.display  = 'block';
         style.position = 'absolute';
         this._element.setStyle(style);
     }

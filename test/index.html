@@ -22,23 +22,41 @@
     
     <script type="text/javascript">
         require('Ojay', 'Edgecase', function() {
-            var scaleable = new Edgecase.Concrete('#main');
+            var scaleable, ctrl, visible;
+            
+            scaleable = new Edgecase.Concrete('#main');
+            
+            if (console && (log = console.log)) {
+                scaleable.on('load', function() {
+                    log("Image loaded");
+                });
+                
+                scaleable.on('hide', function() {
+                    log("Image hidden");
+                });
+                
+                scaleable.on('show', function() {
+                    log("Image shown");
+                });
+            }
+            
             scaleable.setup();
             
-            var ctrl = Ojay(Ojay.HTML.span({className: 'control'}, 'Hide background'));
+            ctrl = Ojay(Ojay.HTML.span({className: 'control'}, 'Hide background'));
             scaleable.getHTML().insert(ctrl, 'after');
             
-            var hidden = false;
+            visible = true;
+            
             ctrl.on('click', function() {
-                if (hidden) {
-                    scaleable.show();
-                    ctrl.setContent('Hide background');
-                } else {
+                if (visible) {
                     scaleable.hide();
                     ctrl.setContent('Show background');
+                } else {
+                    scaleable.show();
+                    ctrl.setContent('Hide background');
                 }
                 
-                hidden = !hidden;
+                visible = !visible;
             });
         });
     </script>

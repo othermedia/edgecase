@@ -19,6 +19,7 @@ packages:
       requires:
         - JS.Class
         - Ojay
+        - Ojay.Observable
       provides:
         - Edgecase
         - Edgecase.Concrete
