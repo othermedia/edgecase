@@ -65,7 +65,7 @@ Edgecase = new JS.Module('Edgecase', {
     
     fitToContainer: function() {
         if (this._container) {
-            this._fitToContainer(this._container.width(), this._container.height());
+            this._fitToContainer(this._container.getWidth(), this._container.getHeight());
         } else {
             this.fitToViewport();
         }
@@ -125,6 +125,7 @@ Edgecase.Concrete = new JS.Class('Edgecase.Concrete', {
         
         this.setElement(image);
         this.setContainer(options.container);
+        this.getHTML().setStyle({display: 'block'});
         
         if (options.aspectRatio) {
             ratio = options.aspectRatio;
