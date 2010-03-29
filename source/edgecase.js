@@ -21,6 +21,10 @@ Edgecase = new JS.Module('Edgecase', {
         return this;
     },
     
+    getAspectRatio: function() {
+        return this._aspectRatio;
+    },
+    
     setup: function() {
         Ojay(window).on('resize', function() {
             if (this._visible) {
@@ -85,8 +89,8 @@ Edgecase = new JS.Module('Edgecase', {
         var containerAspectRatio = containerWidth / containerHeight,
             position, x, y;
         
-        if (containerAspectRatio > this._aspectRatio) {
-            y = containerWidth / this._aspectRatio;
+        if (containerAspectRatio > this.getAspectRatio()) {
+            y = containerWidth / this.getAspectRatio();
             
             position = {
                 width:  containerWidth + 'px',
@@ -95,7 +99,7 @@ Edgecase = new JS.Module('Edgecase', {
                 top:    Math.ceil((containerHeight - y) / 2) + 'px'
             };
         } else {
-            x = containerHeight * this._aspectRatio;
+            x = containerHeight * this.getAspectRatio();
             
             position = {
                 width:  Math.ceil(x) + 'px',
