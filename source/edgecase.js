@@ -69,7 +69,7 @@ Edgecase = new JS.Module('Edgecase', {
     
     fitToContainer: function() {
         if (this._container) {
-            this._fitToContainer(this._container.getWidth(), this._container.getHeight());
+            this.fitToContainerXY(this._container.getWidth(), this._container.getHeight());
         } else {
             this.fitToViewport();
         }
@@ -80,12 +80,12 @@ Edgecase = new JS.Module('Edgecase', {
     fitToViewport: function() {
         var portsize = Ojay.getViewportSize();
         
-        this._fitToContainer(portsize.width, portsize.height);
+        this.fitToContainerXY(portsize.width, portsize.height);
         
         return this;
     },
     
-    _fitToContainer: function(containerWidth, containerHeight) {
+    fitToContainerXY: function(containerWidth, containerHeight) {
         var containerAspectRatio = containerWidth / containerHeight,
             position, x, y;
         
