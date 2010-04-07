@@ -87,34 +87,25 @@ Edgecase = new JS.Module('Edgecase', {
     
     fitToContainerXY: function(containerWidth, containerHeight) {
         var containerAspectRatio = containerWidth / containerHeight,
-            position, x, y;
+            style = {display: 'block', position: 'absolute'},
+            x, y;
         
         if (containerAspectRatio > this.getAspectRatio()) {
             y = containerWidth / this.getAspectRatio();
             
-            position = {
-                width:  containerWidth + 'px',
-                height: Math.ceil(y) + 'px',
-                left:   0,
-                top:    Math.ceil((containerHeight - y) / 2) + 'px'
-            };
+            style.width  = containerWidth + 'px';
+            style.height = Math.ceil(y) + 'px';
+            style.left   = 0;
+            style.top    = Math.ceil((containerHeight - y) / 2) + 'px';
         } else {
             x = containerHeight * this.getAspectRatio();
             
-            position = {
-                width:  Math.ceil(x) + 'px',
-                height: containerHeight + 'px',
-                left:   Math.ceil((containerWidth - x) / 2) + 'px',
-                top:    0
-            };
+            style.width  = Math.ceil(x) + 'px';
+            style.height = containerHeight + 'px';
+            style.left   = Math.ceil((containerWidth - x) / 2) + 'px';
+            style.top    = 0;
         }
         
-        this._styleElement(position);
-    },
-    
-    _styleElement: function(style) {
-        style.display  = 'block';
-        style.position = 'absolute';
         this._element.setStyle(style);
     }
 });
