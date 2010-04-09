@@ -15,11 +15,14 @@ packages:
   edgecase:
     files:
       - edgecase
+      - edge-gallery
     meta:
       requires:
         - JS.Class
         - Ojay
         - Ojay.Observable
+        - Ojay.HTML
       provides:
         - Edgecase
         - Edgecase.Concrete
+        - EdgeGallery

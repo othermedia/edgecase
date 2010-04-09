@@ -23,3 +23,31 @@ a mixin.
             this.setAspectRatio(16 / 9);
         }
     });
+
+`EdgeGallery` is lightweight gallery that fills the viewport, built on
+`Edgecase`.
+
+    var json = {
+        "images": [
+            {
+                "uri":         "/images/first.jpg",
+                "description": "The first image",
+                "width":       1024,
+                "height":      768
+            },
+            
+            {
+                "uri":         "/images/second.jpg",
+                "description": "The second image",
+                "width":        1280,
+                "height":       960
+            }
+        ],
+        
+        "rotate":        "auto",
+        "rotationTime":  5.0,
+        "animationTime": 0.5
+    },
+    
+    gallery = EdgeGallery.fromJSON(json);
+    gallery.insertInto(document.body);
