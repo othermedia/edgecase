@@ -18,6 +18,8 @@ Edgecase = new JS.Module('Edgecase', {
     setAspectRatio: function(ratio) {
         this._aspectRatio = ratio;
         
+        this.fitToContainer();
+        
         return this;
     },
     
