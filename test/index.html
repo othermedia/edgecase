@@ -26,17 +26,17 @@
             
             scaleable = new Edgecase.Concrete('#main');
             
-            if (console && (log = console.log)) {
+            if (console && typeof console.log === 'function') {
                 scaleable.on('load', function() {
-                    log("Image loaded");
+                    console.log("Image loaded");
                 });
                 
                 scaleable.on('hide', function() {
-                    log("Image hidden");
+                    console.log("Image hidden");
                 });
                 
                 scaleable.on('show', function() {
-                    log("Image shown");
+                    console.log("Image shown");
                 });
             }
             
