@@ -73,7 +73,7 @@ EdgeGallery = new JS.Class('EdgeGallery', {
                 this._animTime = options.animationTime || this.klass.ANIM_TIME;
                 
                 var html = Ojay(Ojay.HTML.img({
-                    alt: image.description
+                    alt: image.name
                 }));
                 
                 html.on('load', function() {
