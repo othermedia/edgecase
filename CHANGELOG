@@ -1,4 +1,4 @@
-EDGE
+2010.08.04, Version 1.1.0
 
 * Fix a bug in EdgeGallery.Faders.Transition, where transitions would only be
   run the first time through the sequence.
