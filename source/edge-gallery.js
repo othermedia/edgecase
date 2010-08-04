@@ -63,11 +63,33 @@ EdgeGallery = new JS.Class('EdgeGallery', {
             include: Edgecase,
             
             extend: {
-                ANIM_TIME: 1.0
+                ANIM_TIME: 1.0,
+                
+                selectFader: function() {
+                    if (this.__fader) return this.__fader;
+                    
+                    var fader = EdgeGallery.Faders.Default,
+                        test  = document.createElement('div');
+                    
+                    ['o', 'moz', 'webkit'].forEach(function(prefix) {
+                        test.style.cssText = '-' + prefix + '-transition-property: opacity;';
+                        if (prefix === "moz") {
+                            prefix = "Moz";
+                        } else if (prefix === "o") {
+                            prefix = "O";
+                        }
+                        if (typeof test.style[prefix + 'TransitionProperty'] !== 'undefined') {
+                            fader = EdgeGallery.Faders.Transition;
+                            fader.use(prefix);
+                        }
+                    }, this);
+                    
+                    return this.__fader = fader;
+                }
             },
             
             initialize: function(image, options) {
-                this._selectFader();
+                this.selectFader();
                 
                 this.setAspectRatio(image.width / image.height);
                 this._animTime = options.animationTime || this.klass.ANIM_TIME;
@@ -90,22 +112,8 @@ EdgeGallery = new JS.Class('EdgeGallery', {
                 return !!this._loaded;
             },
             
-            _selectFader: function() {
-                var fader = EdgeGallery.Faders.Default,
-                    test  = document.createElement('div');
-                
-                'o moz webkit'.split(' ').forEach(function(prefix) {
-                    test.style.cssText = '-' + prefix + '-transition-property: opacity;';
-                    if (prefix === "moz") {
-                        prefix = "Moz";
-                    } else if (prefix === "o") {
-                        prefix = "O";
-                    }
-                    if (typeof test.style[prefix + 'TransitionProperty'] !== 'undefined') {
-                        fader = EdgeGallery.Faders.Transition;
-                        fader.use(prefix);
-                    }
-                });
+            selectFader: function() {
+                var fader = this.klass.selectFader();
                 
                 if (typeof fader === 'object') {
                     this.extend(fader);

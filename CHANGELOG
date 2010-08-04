@@ -3,6 +3,7 @@ EDGE
 * Fix a bug in EdgeGallery.Faders.Transition, where transitions would only be
   run the first time through the sequence.
 * Fix EdgeGallery.Faders.Transition support for recent versions of Opera.
+* Refactor CSS transition detection so it only runs once, not once per item.
 
 2010.04.07, Version 1.0.0
 
