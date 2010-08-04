@@ -96,7 +96,11 @@ EdgeGallery = new JS.Class('EdgeGallery', {
                 
                 'o moz webkit'.split(' ').forEach(function(prefix) {
                     test.style.cssText = '-' + prefix + '-transition-property: opacity;';
-                    prefix = prefix === 'moz' ? 'Moz' : prefix;
+                    if (prefix === "moz") {
+                        prefix = "Moz";
+                    } else if (prefix === "o") {
+                        prefix = "O";
+                    }
                     if (typeof test.style[prefix + 'TransitionProperty'] !== 'undefined') {
                         fader = EdgeGallery.Faders.Transition;
                         fader.use(prefix);

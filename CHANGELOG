@@ -2,6 +2,7 @@ EDGE
 
 * Fix a bug in EdgeGallery.Faders.Transition, where transitions would only be
   run the first time through the sequence.
+* Fix EdgeGallery.Faders.Transition support for recent versions of Opera.
 
 2010.04.07, Version 1.0.0
 
