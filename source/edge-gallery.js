@@ -177,8 +177,6 @@ EdgeGallery.Faders.Default = new JS.Module('EdgeGallery.Faders.Default', {
 });
 
 EdgeGallery.Faders.Transition = new JS.Module('EdgeGallery.Faders.Transition', {
-    include: EdgeGallery.Faders.FadeOut,
-    
     extend: {
         use: function(prefix) {
             this.include({
@@ -199,20 +197,48 @@ EdgeGallery.Faders.Transition = new JS.Module('EdgeGallery.Faders.Transition', {
         
         this.callSuper();
         
-        var chain      = new JS.MethodChain(),
-            transition = {opacity: 1};
-        
-        transition[this.transitionPrefix() + 'Duration'] = this._animTime + 's';
-        transition[this.transitionPrefix() + 'Property'] = 'opacity';
+        var chain = new JS.MethodChain();
         
         chain.getHTML();
         
         if (options.animate === false) {
             chain.setStyle({opacity: 1, zIndex: 3});
         } else {
-            chain.setStyle({opacity: 0, zIndex: 3});
-            chain.setStyle(transition);
+            chain.setStyle({zIndex: 3}).show().wait(0.01).setStyle({opacity: 1});
         }
+        
+        return chain.fire(this);
+    },
+    
+    hide: function(options) {
+        options = options || {};
+        
+        var chain        = new JS.MethodChain(),
+            currentSuper = this.callSuper,
+            hiddenState;
+        
+        chain.getHTML();
+        
+        if (options.animate === false /* setup state */) {
+            hiddenState = {
+                opacity: 0,
+                zIndex:  1
+            };
+            
+            hiddenState[this.transitionPrefix() + 'Duration'] = this._animTime + 's';
+            hiddenState[this.transitionPrefix() + 'Property'] = 'opacity';
+            
+            chain.hide().setStyle(hiddenState);
+        } else {
+            chain.setStyle({zIndex: 1});
+            chain.wait(this._animTime + 0.01);
+            chain.hide().setStyle({opacity: 0});
+        }
+        
+        chain._(function() {
+            this.callSuper = currentSuper;
+            this.callSuper();
+        }.bind(this));
         
         return chain.fire(this);
     }

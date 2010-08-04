@@ -1,0 +1,9 @@
+EDGE
+
+* Fix a bug in EdgeGallery.Faders.Transition, where transitions would only be
+  run the first time through the sequence.
+
+2010.04.07, Version 1.0.0
+
+* Scalable, container filling images.
+* Gallery based on the above with support for CSS transitions.
